@@ -13,5 +13,14 @@
             "email": "zgs225@gmail.com"
         }
     ],
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "autoload": {
+      "psr-4": {
+        "Youplus\\": "src/"
+      },
+      "files": [
+        "src/helpers.php",
+        "src/smarty_plugins.php"
+      ]
+    }
 }
