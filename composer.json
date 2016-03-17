@@ -1,0 +1,17 @@
+{
+    "name": "zgs225/dagger",
+    "description": "Youplus dagger framework",
+    "require": {
+      "php": ">=5.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.2"
+    },
+    "authors": [
+        {
+            "name": "zgs225",
+            "email": "zgs225@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
