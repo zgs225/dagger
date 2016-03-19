@@ -69,16 +69,18 @@ class AccessValidator
             if ($accessValidator->isNeedsLogin($router) && ! $accessValidator->validLogin($adminUserId, $router)) {
                 Message::showError('尚未登录:(', null, null, Router::createUrl('admin_user', 'login', null, 'admin'));
             } else {
-                Log::setLogFilePath('admin_log/access_failed_log');
+                if (defined(DAGGER_ENV) && DAGGER_ENV == 'product') {
+                    Log::setLogFilePath('admin_log/access_failed_log');
 
-                Log::write(
-                    $currentAdminUser['admin_user_name'],
-                    $_SERVER['REMOTE_ADDR'],
-                    0,
-                    $router,
-                    0,
-                    "没有访问权限"
-                );
+                    Log::write(
+                        $currentAdminUser['admin_user_name'],
+                        $_SERVER['REMOTE_ADDR'],
+                        0,
+                        $router,
+                        0,
+                        "没有访问权限"
+                    );
+                }
 
                 Message::showError('没有权限访问:(');
             }
@@ -95,8 +97,8 @@ class AccessValidator
     public function can($adminUserId, $router)
     {
         return $this->validLogin($adminUserId, $router) &&
-               $this->validRole ($adminUserId, $router) &&
-               $this->validPermission($adminUserId, $router);
+            $this->validRole ($adminUserId, $router) &&
+            $this->validPermission($adminUserId, $router);
     }
 
     /**
@@ -332,7 +334,7 @@ class AccessValidator
         $currentAdminUser = Admin::getCurrentAdminUser();
 
         return ! empty($currentAdminUser) &&
-                 $currentAdminUser['admin_user_id'] == $adminUserId;
+            $currentAdminUser['admin_user_id'] == $adminUserId;
     }
 
     protected function getRouter()
