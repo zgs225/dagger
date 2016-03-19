@@ -69,8 +69,6 @@ class AccessValidator
             if ($accessValidator->isNeedsLogin($router) && ! $accessValidator->validLogin($adminUserId, $router)) {
                 Message::showError('尚未登录:(', null, null, Router::createUrl('admin_user', 'login', null, 'admin'));
             } else {
-                Message::showError('没有权限访问:(');
-
                 Log::setLogFilePath('admin_log/access_failed_log');
 
                 Log::write(
@@ -81,6 +79,8 @@ class AccessValidator
                     0,
                     "没有访问权限"
                 );
+
+                Message::showError('没有权限访问:(');
             }
         }
     }
