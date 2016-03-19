@@ -69,18 +69,18 @@ class AccessValidator
             if ($accessValidator->isNeedsLogin($router) && ! $accessValidator->validLogin($adminUserId, $router)) {
                 Message::showError('尚未登录:(', null, null, Router::createUrl('admin_user', 'login', null, 'admin'));
             } else {
-                if (defined('DAGGER_ENV') && DAGGER_ENV == 'product') {
-                    Log::setLogFilePath('admin_log/access_failed_log');
-
-                    Log::write(
-                        $currentAdminUser['admin_user_name'],
-                        $_SERVER['REMOTE_ADDR'],
-                        0,
-                        $router,
-                        0,
-                        "没有访问权限"
-                    );
-                }
+                // if (defined('DAGGER_ENV') && DAGGER_ENV == 'product') {
+                //     Log::setLogFilePath('admin_log/access_failed_log');
+                //
+                //     Log::write(
+                //         $currentAdminUser['admin_user_name'],
+                //         $_SERVER['REMOTE_ADDR'],
+                //         "",
+                //         $router,
+                //         "",
+                //         "没有访问权限"
+                //     );
+                // }
 
                 Message::showError('没有权限访问:(');
             }
