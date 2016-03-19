@@ -3,7 +3,7 @@
 use Router;
 use Message;
 use Configure;
-use \AdminUserModel as Admin;
+use AdminUserModel as Admin;
 
 class AccessValidator
 {
@@ -70,6 +70,17 @@ class AccessValidator
                 Message::showError('尚未登录:(', null, null, Router::createUrl('admin_user', 'login', null, 'admin'));
             } else {
                 Message::showError('没有权限访问:(');
+
+                Log::setLogFilePath('admin_log/access_failed_log');
+
+                Log::write(
+                    $currentAdminUser['admin_user_name'],
+                    $_SERVER['REMOTE_ADDR'],
+                    0,
+                    $router,
+                    0,
+                    "没有访问权限"
+                );
             }
         }
     }
